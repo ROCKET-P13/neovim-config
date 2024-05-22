@@ -13,7 +13,7 @@ end
 
 vim.opt.rtp:prepend(lazyPath)
 
-require("lazy").setup("plugin", {
+require("lazy").setup("plugins", {
 	ui = { border = "rounded" },
 	change_detection = {
 		enabled = true,
