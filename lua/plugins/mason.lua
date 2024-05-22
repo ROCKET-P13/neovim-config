@@ -5,7 +5,6 @@ local M = {
 	},
 }
 
-
 function M.config()
 	local servers = {
 		"lua_ls",
@@ -17,15 +16,15 @@ function M.config()
 		"jsonls",
 	}
 
-	require("mason").setup {
+	require("mason").setup({
 		ui = {
 			border = "rounded",
 		},
-	}
+	})
 
-	require("mason-lspconfig").setup {
+	require("mason-lspconfig").setup({
 		ensure_installed = servers,
-	}
+	})
 end
 
 return M
