@@ -24,6 +24,8 @@ vim.opt.fillchars:append({
 	stl = " ",
 })
 
+vim.opt.shortmess:append("c")
+
 vim.cmd("set signcolumn=yes")
 
 -- Highlight when yanking (copying) text
