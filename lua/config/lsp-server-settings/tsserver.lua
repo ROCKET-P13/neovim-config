@@ -2,8 +2,8 @@ return {
 	settings = {
 		tsserver = {
 			preferences = {
-				importModuleSpecifierEnding = 'minimal'
+				importModuleSpecifierEnding = "minimal",
 			},
-		}
-	}
+		},
+	},
 }
