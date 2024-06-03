@@ -12,9 +12,7 @@ local M = {
 
 function M.config()
 	local cmp = require("cmp")
-
 	local luasnip = require("luasnip")
-
 	local lspkind = require("lspkind")
 
 	cmp.setup({
