@@ -41,6 +41,11 @@ function M.config()
 		completion = { completeopt = "menu,menuone,noinsert" },
 		performance = {
 			max_view_entries = 12,
+			debounce = 10,
+			confirm_resolve_timeout = 80,
+			throttle = 0,
+			fetching_timeout = 80,
+			async_budget = 10,
 		},
 	})
 end

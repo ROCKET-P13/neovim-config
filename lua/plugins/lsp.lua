@@ -31,6 +31,7 @@ return {
 				tsserver = {
 					server_capabilities = {
 						documentFormattingProvider = false,
+						semanticTokensProvider = vim.NIL,
 					},
 				},
 				jsonls = {
