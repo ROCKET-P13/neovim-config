@@ -42,3 +42,5 @@ function M.config()
 		completion = { completeopt = "menu,menuone,noinsert" },
 	})
 end
+
+return M
