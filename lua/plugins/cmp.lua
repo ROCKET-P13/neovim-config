@@ -14,13 +14,16 @@ local M = {
 function M.config()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
-	local lspkind = require("lspkind")
+	-- local lspkind = require("lspkind")
 
 	cmp.setup({
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
 			end,
+		},
+		view = {
+			docs = { auto_open = false },
 		},
 		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -32,15 +35,9 @@ function M.config()
 			{ name = "nvim_lsp" },
 			{ name = "path" },
 		}),
-		formatting = {
-			format = lspkind.cmp_format({
-				maxwidth = 50,
-				ellipsis_char = "...",
-			}),
-		},
 		completion = { completeopt = "menu,menuone,noinsert" },
 		performance = {
-			max_view_entries = 12,
+			max_view_entries = 7,
 			debounce = 10,
 			confirm_resolve_timeout = 80,
 			throttle = 0,
