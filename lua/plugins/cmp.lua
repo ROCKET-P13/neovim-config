@@ -28,7 +28,7 @@ function M.config()
 		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<CR>"] = cmp.mapping.confirm({ select = false }),
+			["<CR>"] = cmp.mapping.confirm(),
 		}),
 		sources = cmp.config.sources({
 			{ name = "buffer" },
