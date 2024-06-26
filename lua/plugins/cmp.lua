@@ -31,7 +31,7 @@ function M.config()
 			["<CR>"] = cmp.mapping.confirm(),
 		}),
 		sources = cmp.config.sources({
-			{ name = "buffer" },
+			{ name = "buffer", option = { keyword_length = 1 } },
 			{ name = "nvim_lsp" },
 			{ name = "path" },
 		}),
