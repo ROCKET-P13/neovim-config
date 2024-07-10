@@ -47,7 +47,6 @@ function M.config()
 			"--glob=!.git/",
 		},
 		extensions = {
-
 			fzf = {
 				fuzzy = true,
 				override_generic_sorter = true,
@@ -102,4 +101,3 @@ function M.config()
 end
 
 return M
-
