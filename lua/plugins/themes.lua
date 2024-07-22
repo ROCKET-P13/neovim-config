@@ -6,6 +6,10 @@ function M.config()
 	require("gruvbox").setup({
 		undercurl = true,
 		contrast = "hard",
+		palette_overrides = {
+			dark1 = "#282828",
+			dark3 = "#3c3836",
+		},
 		italic = {
 			strings = false,
 			emphasis = true,

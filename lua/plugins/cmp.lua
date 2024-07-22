@@ -32,6 +32,8 @@ function M.config()
 		return context.in_treesitter_capture("comment") == true or context.in_syntax_group("Comment")
 	end
 
+	vim.api.nvim_set_hl(0, "MyPmenu", { bg = "#1d2021", fg = "#1d2021" })
+
 	cmp.setup({
 		enabled = function()
 			if is_comment() or is_whitespace() then
@@ -49,7 +51,14 @@ function M.config()
 			docs = { auto_open = false },
 		},
 		window = {
-			completion = cmp.config.window.bordered({ scrolloff = 4 }),
+			completion = cmp.config.window.bordered({
+				border = "rounded",
+				side_padding = 0,
+			}),
+			documentation = cmp.config.window.bordered({
+				border = "rounded",
+				side_padding = 0,
+			}),
 		},
 		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
