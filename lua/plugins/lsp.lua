@@ -28,12 +28,6 @@ return {
 					},
 				},
 				cssls = true,
-				tsserver = {
-					server_capabilities = {
-						documentFormattingProvider = false,
-						semanticTokensProvider = vim.NIL,
-					},
-				},
 				jsonls = {
 					settings = {
 						json = {
@@ -57,7 +51,6 @@ return {
 			local ensure_installed = {
 				"stylua",
 				"lua_ls",
-				"tsserver",
 				"jsonls",
 			}
 
@@ -77,7 +70,7 @@ return {
 
 			local disable_semantic_tokens = {
 				lua = true,
-				javascript = true,
+				javascript = false,
 			}
 
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -158,15 +151,14 @@ return {
 				log_level = vim.log.levels.DEBUG,
 			})
 
-			vim.api.nvim_create_autocmd("BufWritePre", {
+			--[[ vim.api.nvim_create_autocmd("BufWritePre", {
 				callback = function(args)
 					require("conform").format({
 						bufnr = args.buf,
-						lsp_fallback = true,
 						quiet = true,
 					})
 				end,
-			})
+			}) ]]
 		end,
 	},
 }

@@ -1,6 +1,6 @@
 local M = {
 	"hrsh7th/nvim-cmp",
-	--[[ event = "InsertEnter", ]]
+	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
@@ -64,6 +64,8 @@ function M.config()
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<CR>"] = cmp.mapping.confirm(),
+			["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+			["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		}),
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
