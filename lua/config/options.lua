@@ -18,6 +18,7 @@ vim.opt.laststatus = 3
 vim.opt.showcmd = false
 vim.opt.ruler = false
 vim.opt.title = false
+vim.g.mapleader = " "
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
 vim.opt.fillchars:append({
 	stl = " ",

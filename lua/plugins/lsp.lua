@@ -28,6 +28,7 @@ return {
 					},
 				},
 				cssls = true,
+				eslint = true,
 				ts_ls = {
 					server_capabilities = {
 						documentFormattingProvider = false,
@@ -57,6 +58,7 @@ return {
 			local ensure_installed = {
 				"stylua",
 				"lua_ls",
+				"eslint",
 				"ts_ls",
 				"jsonls",
 			}
