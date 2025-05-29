@@ -28,7 +28,7 @@ return {
 					},
 				},
 				cssls = true,
-				tsserver = {
+				ts_ls = {
 					server_capabilities = {
 						documentFormattingProvider = false,
 						semanticTokensProvider = vim.NIL,
@@ -57,7 +57,7 @@ return {
 			local ensure_installed = {
 				"stylua",
 				"lua_ls",
-				"tsserver",
+				"ts_ls",
 				"jsonls",
 			}
 
@@ -119,8 +119,10 @@ return {
 			})
 
 			local icons = require("config.icons")
+			local severity = vim.diagnostic.severity
 
-			local default_diagnostic_config = {
+			vim.diagnostic.config({
+
 				signs = {
 					active = true,
 					values = {
@@ -128,6 +130,24 @@ return {
 						{ name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
 						{ name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
 						{ name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
+					},
+					text = {
+						[severity.ERROR] = icons.diagnostics.Error,
+						[severity.WARN] = icons.diagnostics.Warning,
+						[severity.HINT] = icons.diagnostics.Hint,
+						[severity.INFO] = icons.diagnostics.Information,
+					},
+					texthl = {
+						[severity.ERROR] = "DiagnosticSignError",
+						[severity.WARN] = "DiagnosticSignWarn",
+						[severity.HINT] = "DiagnosticSignHint",
+						[severity.INFO] = "DiagnosticSignInfo",
+					},
+					numhl = {
+						[severity.ERROR] = "DiagnosticSignError",
+						[severity.WARN] = "DiagnosticSignWarn",
+						[severity.HINT] = "DiagnosticSignHint",
+						[severity.INFO] = "DiagnosticSignInfo",
 					},
 				},
 				virtual_text = false,
@@ -142,18 +162,12 @@ return {
 					header = "",
 					prefix = "",
 				},
-			}
-
-			vim.diagnostic.config(default_diagnostic_config)
-
-			for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
-				vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
-			end
+			})
 
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "eslint_d" },
+					javascript = { "eslint" },
 				},
 				log_level = vim.log.levels.DEBUG,
 			})
