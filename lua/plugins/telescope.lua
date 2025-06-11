@@ -1,103 +1,62 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
+	tag = "0.1.5",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+		{
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+		},
+		{
+			"nvim-telescope/telescope-frecency.nvim",
+			version = "*",
+		},
 	},
+	config = function()
+		local actions = require("telescope.actions")
+
+		require("telescope").setup({
+			defaults = {
+				path_display = { "truncate" },
+				shorter_path = true,
+				sorting_strategy = "descending",
+				initial_mode = "insert",
+				selection_strategy = "reset",
+				color_devicons = true,
+				preview = false,
+			},
+			mappings = {
+				n = {
+					["<esc>"] = actions.close,
+					["q"] = actions.close,
+				},
+			},
+			pickers = {
+				find_files = {},
+				git_status = {
+					preview = true,
+				},
+			},
+			extensions = {
+				fzf = {},
+				frecency = {},
+			},
+		})
+
+		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("frecency")
+
+		local builtin = require("telescope.builtin")
+		vim.keymap.set("n", "<C-p>", function()
+			require("telescope").extensions.frecency.frecency({
+				workspace = "CWD",
+			})
+		end)
+
+		vim.keymap.set("n", "<C-f>", require("config.telescope.multigrep").setup)
+		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
+		vim.keymap.set("n", "<C-b>", builtin.buffers, {})
+	end,
 }
-
-function M.config()
-	local icons = require("config.icons")
-	local actions = require("telescope.actions")
-	local telescope = require("telescope")
-
-	local builtin = require("telescope.builtin")
-	vim.keymap.set("n", "<C-p>", builtin.find_files, {})
-	vim.keymap.set("n", "<C-F>", builtin.live_grep, {})
-
-	telescope.setup({
-		defaults = {
-			path_display = { "truncate" },
-			shorter_path = true,
-			layout_strategy = "horizontal",
-			layout_config = { prompt_position = "top" },
-			sorting_strategy = "ascending",
-			prompt_prefix = icons.ui.Telescope .. " ",
-			selection_caret = icons.ui.Forward .. " ",
-			entry_prefix = "   ",
-			initial_mode = "insert",
-			selection_strategy = "reset",
-			color_devicons = true,
-		},
-		mappings = {
-			n = {
-				["<esc>"] = actions.close,
-				["q"] = actions.close,
-			},
-		},
-		vimgrep_arguments = {
-			"rg",
-			"--color=never",
-			"--no-heading",
-			"--with-filename",
-			"--line-number",
-			"--column",
-			"--smart-case",
-			"--hidden",
-			"--glob=!.git/",
-		},
-		extensions = {
-			fzf = {
-				fuzzy = true,
-				override_generic_sorter = true,
-				override_file_sorter = true,
-				case_mode = "smart_case",
-			},
-		},
-		pickers = {
-			live_grep = {
-				theme = "dropdown",
-			},
-
-			grep_string = {
-				theme = "dropdown",
-			},
-
-			find_files = {
-				theme = "dropdown",
-				previewer = false,
-			},
-
-			planets = {
-				show_pluto = true,
-				show_moon = true,
-			},
-
-			colorscheme = {
-				enable_preview = true,
-			},
-
-			lsp_references = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_definitions = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_declarations = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-
-			lsp_implementations = {
-				theme = "dropdown",
-				initial_mode = "normal",
-			},
-		},
-	})
-end
 
 return M

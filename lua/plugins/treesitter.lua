@@ -1,15 +1,38 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
-	event = { "BufReadPost", "BufNewFile" },
+	dependencies = {
+		"nvim-treesitter/playground",
+	},
 	build = ":TSUpdate",
-}
+	event = { "BufReadPost", "BufNewFile" },
+	config = function()
+		require("nvim-treesitter.configs").setup({
+			ensure_installed = {
+				"vimdoc",
+				"jsonc",
+				"javascript",
+				"typescript",
+				"c",
+				"c_sharp",
+				"lua",
+				"rust",
+				"jsdoc",
+				"bash",
+				"query",
+			},
 
-function M.config()
-	require("nvim-treesitter.configs").setup({
-		ensure_installed = { "lua", "markdown", "markdown_inline", "bash", "javascript" },
-		highlight = { enable = true },
-		indent = { enable = false },
-	})
-end
+			sync_install = false,
+			auto_install = false,
+			indent = {
+				enable = false,
+			},
+			highlight = {
+				enable = true,
+				use_languagetree = false,
+				additional_vim_regex_highlighting = false,
+			},
+		})
+	end,
+}
 
 return M

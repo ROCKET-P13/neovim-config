@@ -70,6 +70,22 @@ local M = {
 		vim.api.nvim_set_hl(0, "@variable.member.javascript", { link = "GruvboxFg1" })
 		vim.api.nvim_set_hl(0, "@variable.member.typescript", { link = "GruvboxFg1" })
 		vim.api.nvim_set_hl(0, "SignColumn", { fg = nil, bg = nil })
+
+		vim.api.nvim_set_hl(0, "@operator", { fg = "#ff7b72" })
+		vim.api.nvim_set_hl(0, "@function.javascript", { fg = "#d2a8ff", bold = true })
+		vim.api.nvim_set_hl(0, "@function.method", { fg = "#d2a8ff" })
+		vim.api.nvim_set_hl(0, "@function.call", { fg = "#d2a8ff" })
+		vim.api.nvim_set_hl(0, "@function.knockout", { fg = "#ffa657", bold = true })
+		vim.api.nvim_set_hl(0, "@class.name", { link = "GruvboxYellow" })
+
+		vim.api.nvim_set_hl(0, "@keyword.class", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.const", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.let", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.var", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.function", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.new", { link = "GruvboxOrange" })
+		vim.api.nvim_set_hl(0, "@keyword.delete", { link = "GruvboxAquaGruvboxOrange" })
+
 		vim.cmd("colorscheme gruvbox")
 		vim.cmd("hi SignColumn guibg=NONE cterm=NONE term=NONE")
 	end,

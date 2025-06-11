@@ -106,3 +106,39 @@
 	  (#set! "priority" 111)
   )
 )
+
+
+; Operators
+["=" ">" "<" "||" "!" "&&" "." ":" ";" ","] @operator
+
+; Function definitions
+(function_declaration
+  name: (identifier) @function)
+(arrow_function
+  "=>" @operator)
+
+
+; Method calls
+(call_expression
+  function: (member_expression
+    property: (property_identifier) @function.method))
+(call_expression
+  function: (identifier) @function.call)
+
+; Special method highlighting for knockout.js
+((identifier) @function.knockout
+  (#match? @function.knockout "^(observable|observableArray|computed|chain|peek|slice|filter|value|some|map)$"))
+
+; Class definitions
+(class_declaration
+  name: (identifier) @class.name)
+
+
+; Keywords
+"class" @keyword.class
+"const" @keyword.const
+"let" @keyword.let
+"var" @keyword.var
+"function" @keyword.function
+"new" @keyword.new
+"delete" @keyword.delete
