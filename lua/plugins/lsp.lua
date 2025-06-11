@@ -26,6 +26,15 @@ return {
 					server_capabilities = {
 						semanticTokensProvider = vim.NIL,
 					},
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = {
+									"vim",
+								},
+							},
+						},
+					},
 				},
 				cssls = true,
 				eslint = true,
@@ -164,6 +173,20 @@ return {
 					header = "",
 					prefix = "",
 				},
+			})
+
+			-- Show diagnostics in a floating window when cursor is idle
+			vim.api.nvim_create_autocmd("CursorHold", {
+				callback = function()
+					vim.diagnostic.open_float(nil, {
+						focusable = false,
+						close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+						border = "rounded",
+						source = "always",
+						prefix = "",
+						scope = "cursor",
+					})
+				end,
 			})
 
 			require("conform").setup({
