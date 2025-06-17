@@ -18,7 +18,7 @@ return {
 				treesitter_highlighting = false,
 			},
 			accept = {
-				-- resolve_timeout_ms = 50,
+				resolve_timeout_ms = 50,
 				auto_brackets = {
 					enabled = false,
 				},
@@ -35,13 +35,13 @@ return {
 		sources = {
 			default = {
 				"lsp",
-				"buffer",
+				-- "buffer",
 				"snippets",
 				"path",
 			},
 			providers = {
 				lsp = {
-					timeout_ms = 400,
+					timeout_ms = 50,
 				},
 			},
 		},

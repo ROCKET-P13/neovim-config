@@ -33,7 +33,7 @@ local M = {
 		vim.api.nvim_set_hl(0, "@shorthand_property_identifier", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@property_reference", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@method_call", { link = "GruvboxYellow" })
-		vim.api.nvim_set_hl(0, "@testingggg", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@testingg", { link = "GruvboxYellow" })
 
 		vim.api.nvim_set_hl(0, "@function.method.call.lua", { link = "GruvboxYellow" })
 

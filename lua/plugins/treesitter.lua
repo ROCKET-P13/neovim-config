@@ -20,7 +20,6 @@ local M = {
 				"bash",
 				"query",
 			},
-
 			sync_install = false,
 			auto_install = false,
 			indent = {

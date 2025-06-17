@@ -29,6 +29,16 @@ local M = {
 				n = {
 					["<esc>"] = actions.close,
 					["q"] = actions.close,
+					["<C-q>"] = function(prompt_bufnr)
+						actions.smart_send_to_qflist(prompt_bufnr)
+						actions.open_qflist(prompt_bufnr)
+					end,
+				},
+				i = {
+					["<C-q>"] = function(prompt_bufnr)
+						actions.smart_send_to_qflist(prompt_bufnr)
+						actions.open_qflist(prompt_bufnr)
+					end,
 				},
 			},
 			pickers = {

@@ -37,7 +37,13 @@ return {
 					},
 				},
 				cssls = true,
-				eslint = true,
+				eslint = {
+					settings = {
+						codeActionsOnSave = {
+							enable = false,
+						},
+					},
+				},
 				ts_ls = {
 					server_capabilities = {
 						documentFormattingProvider = false,
@@ -62,7 +68,6 @@ return {
 					return t
 				end
 			end, vim.tbl_keys(servers))
-
 			require("mason").setup()
 			local ensure_installed = {
 				"stylua",
@@ -198,11 +203,10 @@ return {
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*",
 				callback = function(args)
 					require("conform").format({
 						bufnr = args.buf,
-						lsp_fallback = true,
-						quiet = true,
 					})
 				end,
 			})
