@@ -37,13 +37,7 @@ return {
 					},
 				},
 				cssls = true,
-				eslint = {
-					settings = {
-						codeActionsOnSave = {
-							enable = false,
-						},
-					},
-				},
+				eslint = true,
 				ts_ls = {
 					server_capabilities = {
 						documentFormattingProvider = false,
