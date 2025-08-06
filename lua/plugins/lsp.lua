@@ -192,17 +192,20 @@ return {
 			require("conform").setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					javascript = { "eslint" },
 				},
-				log_level = vim.log.levels.DEBUG,
+				format_on_save = {
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 200,
+				},
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				callback = function(args)
 					require("conform").format({
-						bufnr = args.buf,
 						lsp_fallback = true,
-						quiet = true,
+						async = false,
+						timeout_ms = 200,
 					})
 				end,
 			})
