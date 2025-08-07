@@ -27,6 +27,7 @@ return {
 			on_vim_enter = function(event)
 				--- Open the drawer on startup.
 				--- Example mapping to toggle.
+
 				vim.keymap.set("n", "<C-b>", function()
 					event.instance.focus_or_toggle()
 				end)
@@ -39,6 +40,7 @@ return {
 				local nvim_tree_api = require("nvim-tree.api")
 				nvim_tree_api.tree.open({
 					current_window = true,
+					find_file = true,
 				})
 			end,
 
