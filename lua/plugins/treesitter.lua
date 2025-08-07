@@ -2,6 +2,7 @@ local M = {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		"nvim-treesitter/playground",
+		"windwp/nvim-ts-autotag", -- provides auto-closing functionality for tags
 	},
 	build = ":TSUpdate",
 	event = { "BufReadPost", "BufNewFile" },
@@ -26,10 +27,22 @@ local M = {
 			indent = {
 				enable = false,
 			},
+			autotag = {
+				enable = true,
+			},
 			highlight = {
 				enable = true,
 				use_languagetree = false,
 				additional_vim_regex_highlighting = false,
+			},
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<C-space>",
+					node_incremental = "<C-space>",
+					scope_incremental = false,
+					node_decremental = "<bs>",
+				},
 			},
 		})
 	end,

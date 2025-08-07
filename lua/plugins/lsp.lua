@@ -1,211 +1,223 @@
-return {
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"folke/neodev.nvim",
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{ "j-hui/fidget.nvim", opts = {} },
-			"stevearc/conform.nvim",
-			"b0o/SchemaStore.nvim",
-		},
-		config = function()
-			require("neodev").setup({})
+local M = {
+	"neovim/nvim-lspconfig",
+	dependencies = {
+		"folke/neodev.nvim",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"hrsh7th/cmp-nvim-lsp", -- facilitates communication between lsp and autocompletion
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ "antosha417/nvim-lsp-file-operations", config = true }, -- modify imports when files have been renamed
+		{ "folke/neodev.nvim", opts = {} }, -- add improved lua lsp functionality
+	},
+	event = { "BufReadPre", "BufNewFile" },
+	config = function()
+		require("neodev").setup({})
 
-			local capabilities = nil
-			if pcall(require, "cmp_nvim_lsp") then
-				capabilities = require("cmp_nvim_lsp").default_capabilities()
-			end
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local lspconfig = require("lspconfig")
 
-			local lspconfig = require("lspconfig")
-
-			local servers = {
-				bashls = true,
-				lua_ls = {
-					server_capabilities = {
-						semanticTokensProvider = vim.NIL,
-					},
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = {
-									"vim",
-								},
+		local servers = {
+			bashls = true,
+			lua_ls = {
+				server_capabilities = {
+					semanticTokensProvider = vim.NIL,
+				},
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = {
+								"vim",
 							},
 						},
 					},
 				},
-				cssls = true,
-				eslint = true,
-				ts_ls = {
-					server_capabilities = {
-						documentFormattingProvider = false,
-						semanticTokensProvider = vim.NIL,
-					},
+			},
+			cssls = true,
+			eslint = {
+				settings = {
+					quiet = true,
 				},
-				jsonls = {
-					settings = {
-						json = {
-							schemas = require("schemastore").json.schemas(),
-							validate = { enable = true },
-						},
-					},
+			},
+			ts_ls = {
+				server_capabilities = {
+					documentFormattingProvider = false,
+					semanticTokensProvider = vim.NIL,
 				},
-			}
+			},
+		}
 
-			local servers_to_install = vim.tbl_filter(function(key)
-				local t = servers[key]
-				if type(t) == "table" then
-					return not t.manual_install
-				else
-					return t
-				end
-			end, vim.tbl_keys(servers))
-
-			require("mason").setup()
-			local ensure_installed = {
-				"stylua",
-				"lua_ls",
-				"eslint",
-				"ts_ls",
-				"jsonls",
-			}
-
-			vim.list_extend(ensure_installed, servers_to_install)
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-			for name, config in pairs(servers) do
-				if config == true then
-					config = {}
-				end
-				config = vim.tbl_deep_extend("force", {}, {
-					capabilities = capabilities,
-				}, config)
-
-				lspconfig[name].setup(config)
+		local servers_to_install = vim.tbl_filter(function(key)
+			local t = servers[key]
+			if type(t) == "table" then
+				return not t.manual_install
+			else
+				return t
 			end
+		end, vim.tbl_keys(servers))
 
-			local disable_semantic_tokens = {
-				lua = true,
-				javascript = true,
-			}
+		require("mason").setup()
 
-			vim.api.nvim_create_autocmd("LspAttach", {
-				callback = function(args)
-					local bufnr = args.buf
-					local client = assert(vim.lsp.get_client_by_id(args.data.client_id), "must have valid client")
+		local ensure_installed = {
+			"ts_ls",
+			"lua_ls",
+			"jsonls",
+			"html",
+			"cssls",
+			"marksman",
+			"eslint",
+		}
 
-					local settings = servers[client.name]
-					if type(settings) ~= "table" then
-						settings = {}
-					end
+		require("mason-lspconfig").setup({
+			ensure_installed = ensure_installed,
+			automatic_enable = false, -- elect to setup servers myself to be able to pass cmp (autocomplete) capabilities
+		})
 
-					local builtin = require("telescope.builtin")
+		vim.list_extend(ensure_installed, servers_to_install)
 
-					vim.opt_local.omnifunc = "v:lua.vim.lsp.omnifunc"
-					vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
-					vim.keymap.set("n", "gr", builtin.lsp_references, { buffer = 0 })
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = 0 })
-					vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = 0 })
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+		vim.diagnostic.config({
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				focusable = false,
+				style = "minimal",
+				border = "rounded",
+				source = "always",
+				header = "",
+				prefix = "",
+			},
+		})
 
-					vim.keymap.set("n", "<space>cr", vim.lsp.buf.rename, { buffer = 0 })
+		for name, config in pairs(servers) do
+			if config == true then
+				config = {}
+			end
+			config = vim.tbl_deep_extend("force", {}, {
+				capabilities = capabilities,
+			}, config)
 
-					local filetype = vim.bo[bufnr].filetype
-					if disable_semantic_tokens[filetype] then
-						client.server_capabilities.semanticTokensProvider = nil
-					end
+			lspconfig[name].setup(config)
+		end
 
-					if settings.server_capabilities then
-						for k, v in pairs(settings.server_capabilities) do
-							if v == vim.NIL then
-								v = nil
-							end
+		local disable_semantic_tokens = {
+			lua = true,
+			javascript = true,
+			typescript = true,
+		}
 
-							client.server_capabilities[k] = v
-						end
-					end
-				end,
-			})
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(event)
+				local bufnr = event.buf
+				local client = vim.lsp.get_client_by_id(event.data.client_id) or { name = "" }
+				local opts = { buffer = bufnr, silent = true }
 
-			local icons = require("config.icons")
-			local severity = vim.diagnostic.severity
+				opts.desc = "LSP: Show definitions"
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 
-			vim.diagnostic.config({
+				opts.desc = "LSP: Go to declaration"
+				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
-				signs = {
-					active = true,
-					values = {
-						{ name = "DiagnosticSignError", text = icons.diagnostics.Error },
-						{ name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
-						{ name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-						{ name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
-					},
-					text = {
-						[severity.ERROR] = icons.diagnostics.Error,
-						[severity.WARN] = icons.diagnostics.Warning,
-						[severity.HINT] = icons.diagnostics.Hint,
-						[severity.INFO] = icons.diagnostics.Information,
-					},
-					texthl = {
-						[severity.ERROR] = "DiagnosticSignError",
-						[severity.WARN] = "DiagnosticSignWarn",
-						[severity.HINT] = "DiagnosticSignHint",
-						[severity.INFO] = "DiagnosticSignInfo",
-					},
-					numhl = {
-						[severity.ERROR] = "DiagnosticSignError",
-						[severity.WARN] = "DiagnosticSignWarn",
-						[severity.HINT] = "DiagnosticSignHint",
-						[severity.INFO] = "DiagnosticSignInfo",
-					},
+				opts.desc = "LSP: Go to declaration"
+				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+				opts.desc = "LSP: Show documentation for what is under cursor"
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+				opts.desc = "LSP: Show implementations"
+				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+
+				opts.desc = "LSP: Show type definitions"
+				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+				opts.desc = "LSP: See available code actions"
+				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+
+				opts.desc = "LSP: Smart rename"
+				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+
+				opts.desc = "LSP: View line diagnostics"
+				vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts) -- view diagnostics for line
+
+				opts.desc = "LSP: View buffer diagnostics"
+				vim.keymap.set("n", "<leader>vD", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- view  diagnostics for file
+
+				opts.desc = "LSP: Go to previous diagnostic"
+				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+
+				opts.desc = "LSP: Go to next diagnostic"
+				vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+
+				opts.desc = "LSP: Restart LSP"
+				vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+				local filetype = vim.bo[bufnr].filetype
+				if disable_semantic_tokens[filetype] then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
+
+				if client.name == "ts_ls" then
+					client.server_capabilities.documentFormattingProvider = false
+				end
+			end,
+		})
+
+		local icons = require("config.icons")
+		local severity = vim.diagnostic.severity
+
+		vim.diagnostic.config({
+			signs = {
+				active = true,
+				values = {
+					{ name = "DiagnosticSignError", text = icons.diagnostics.Error },
+					{ name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
+					{ name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+					{ name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
 				},
-				virtual_text = false,
-				update_in_insert = false,
-				underline = true,
-				severity_sort = true,
-				float = {
-					focusable = true,
-					style = "minimal",
-					border = "rounded",
-					source = "always",
-					header = "",
-					prefix = "",
+				text = {
+					[severity.ERROR] = icons.diagnostics.Error,
+					[severity.WARN] = icons.diagnostics.Warning,
+					[severity.HINT] = icons.diagnostics.Hint,
+					[severity.INFO] = icons.diagnostics.Information,
 				},
-			})
-
-			-- Show diagnostics in a floating window when cursor is idle
-			vim.api.nvim_create_autocmd("CursorHold", {
-				callback = function()
-					vim.diagnostic.open_float(nil, {
-						focusable = false,
-						close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-						border = "rounded",
-						source = "always",
-						prefix = "",
-						scope = "cursor",
-					})
-				end,
-			})
-
-			require("conform").setup({
-				formatters_by_ft = {
-					lua = { "stylua" },
-					javascript = { "eslint" },
+				texthl = {
+					[severity.ERROR] = "DiagnosticSignError",
+					[severity.WARN] = "DiagnosticSignWarn",
+					[severity.HINT] = "DiagnosticSignHint",
+					[severity.INFO] = "DiagnosticSignInfo",
 				},
-				log_level = vim.log.levels.DEBUG,
-			})
+				numhl = {
+					[severity.ERROR] = "DiagnosticSignError",
+					[severity.WARN] = "DiagnosticSignWarn",
+					[severity.HINT] = "DiagnosticSignHint",
+					[severity.INFO] = "DiagnosticSignInfo",
+				},
+			},
+			virtual_text = false,
+			update_in_insert = false,
+			underline = true,
+			severity_sort = true,
+			float = {
+				focusable = true,
+				style = "minimal",
+				border = "rounded",
+				header = "",
+				prefix = "",
+			},
+		})
 
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				callback = function(args)
-					require("conform").format({
-						bufnr = args.buf,
-						lsp_fallback = true,
-						quiet = true,
-					})
-				end,
-			})
-		end,
-	},
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			callback = function(args)
+				require("conform").format({
+					bufnr = args.buf,
+					lsp_fallback = true,
+					async = true,
+					timeout_ms = 200,
+					log_level = vim.log.levels.DEBUG,
+				})
+			end,
+		})
+	end,
 }
+
+return M

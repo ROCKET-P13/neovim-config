@@ -1,6 +1,5 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.5",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{
@@ -17,9 +16,19 @@ local M = {
 
 		require("telescope").setup({
 			defaults = {
-				path_display = { "truncate" },
+				path_display = { "smart" },
+				layout_strategy = "horizontal",
+				-- show preview no matter the terminal column width
+				layout_config = {
+					prompt_position = "top",
+					horizontal = {
+						preview_cutoff = 0,
+						height = 30,
+						width = 100,
+					},
+				},
+				sorting_strategy = "ascending",
 				shorter_path = true,
-				sorting_strategy = "descending",
 				initial_mode = "insert",
 				selection_strategy = "reset",
 				color_devicons = true,
@@ -29,6 +38,16 @@ local M = {
 				n = {
 					["<esc>"] = actions.close,
 					["q"] = actions.close,
+					["<C-q>"] = function(prompt_bufnr)
+						actions.smart_send_to_qflist(prompt_bufnr)
+						actions.open_qflist(prompt_bufnr)
+					end,
+				},
+				i = {
+					["<C-q>"] = function(prompt_bufnr)
+						actions.smart_send_to_qflist(prompt_bufnr)
+						actions.open_qflist(prompt_bufnr)
+					end,
 				},
 			},
 			pickers = {
@@ -53,9 +72,7 @@ local M = {
 			})
 		end)
 
-		vim.keymap.set("n", "<C-f>", require("config.telescope.multigrep").setup)
 		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
-		vim.keymap.set("n", "<C-b>", builtin.buffers, {})
 	end,
 }
 

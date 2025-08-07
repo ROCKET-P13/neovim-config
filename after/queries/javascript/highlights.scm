@@ -78,14 +78,14 @@
 
 (call_expression
 	function: (member_expression
-		property: (property_identifier) @testingggg 
+		property: (property_identifier) @testingg
 		(#set! "priority" 111)
 	) 
 )
 
 (call_expression
 	function: (member_expression
-		property: (private_property_identifier) @testingggg 
+		property: (private_property_identifier) @testingg
 		(#set! "priority" 111)
 	) 
 )
@@ -95,7 +95,7 @@
 	  object: (member_expression ; [459, 38] - [459, 66]
 		object: (this) ; [459, 38] - [459, 42]
 		property: (private_property_identifier)) ; [459, 43] - [459, 66]
-	  property: (property_identifier) @testingggg
+	  property: (property_identifier) @testingg
 		(#set! "priority" 111)
 	)
 )
@@ -109,7 +109,9 @@
 
 
 ; Operators
-["=" ">" "<" "||" "!" "&&" "." ":" ";" ","] @operator
+; ["=" ">" "<" "||" "!" "&&" "." ":" ";" ","] @operator
+[";" ":" "," "." "="] @operator
+[">" "<" "||" "!" "&&"] @special_operator
 
 ; Function definitions
 (function_declaration
@@ -142,3 +144,4 @@
 "function" @keyword.function
 "new" @keyword.new
 "delete" @keyword.delete
+"async" @keyword.async
