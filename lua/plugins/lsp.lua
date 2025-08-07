@@ -62,6 +62,21 @@ local M = {
 		vim.list_extend(ensure_installed, servers_to_install)
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
+		vim.diagnostic.config({
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				focusable = false,
+				style = "minimal",
+				border = "rounded",
+				source = "always",
+				header = "",
+				prefix = "",
+			},
+		})
+
 		for name, config in pairs(servers) do
 			if config == true then
 				config = {}
@@ -123,10 +138,12 @@ local M = {
 
 				opts.desc = "LSP: Restart LSP"
 				vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
 				local filetype = vim.bo[bufnr].filetype
 				if disable_semantic_tokens[filetype] then
 					client.server_capabilities.semanticTokensProvider = nil
 				end
+
 				if client.name == "ts_ls" then
 					client.server_capabilities.documentFormattingProvider = false
 				end
