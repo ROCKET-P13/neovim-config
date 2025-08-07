@@ -12,40 +12,29 @@ vim.opt.startofline = true -- gg defaults to column 1 (among other things)
 -- prevent keymapping timeout
 -- vim.opt.timeout = false
 
--- or simply increase timeout
 vim.opt.timeout = true
--- opt.timeoutlen = 300
 
--- tabs & indentation
 vim.opt.tabstop = 4 -- width (in columns) used to display an actual tabulation character
 vim.opt.shiftwidth = 4 -- amount of whitespace used for one level of indentation (e.g., >>)
--- vim.opt.expandtab = true -- indentation done using spaces only
 vim.opt.list = false
 vim.opt.autoindent = true -- copy indent from current line when starting new one
 
 vim.opt.wrap = false
 
--- search settings
 vim.opt.ignorecase = true -- ignore case when searching
 vim.opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 
--- turn on termguicolors for tokyonight colorscheme to work
--- need to have a true color terminal
 vim.opt.termguicolors = true
 vim.opt.background = "dark" -- colorschemes that can be light or dark will be made dark
 vim.opt.signcolumn = "yes"
 
--- backspace
 vim.opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
 
--- clipboard
 vim.opt.clipboard:append("unnamedplus") -- use system register as default register
 
--- split windows
 vim.opt.splitright = true -- split vertical window to the right
 vim.opt.splitbelow = true -- split horizontal window to the bottom
 
--- stop auto inclusion of new line at the end of files
 vim.opt.fixendofline = false
 
 -- Remove auto comment continuation on newline
@@ -53,17 +42,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
 	callback = function()
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
-	end,
-})
-
--- highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({
-			higroup = "IncSearch",
-			timeout = 100,
-		})
 	end,
 })
 
@@ -84,3 +62,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+vim.keymap.set("n", "<C-l>", "<C-W>l")
+vim.keymap.set("n", "<C-h>", "<C-W>h")
+vim.keymap.set("n", "<C-j>", "<C-W>j")
+vim.keymap.set("n", "<C-k>", "<C-W>k")
