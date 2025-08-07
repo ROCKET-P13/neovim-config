@@ -16,9 +16,19 @@ local M = {
 
 		require("telescope").setup({
 			defaults = {
-				path_display = { "truncate" },
+				path_display = { "smart" },
+				layout_strategy = "horizontal",
+				-- show preview no matter the terminal column width
+				layout_config = {
+					prompt_position = "top",
+					horizontal = {
+						preview_cutoff = 0,
+						height = 30,
+						width = 100,
+					},
+				},
+				sorting_strategy = "ascending",
 				shorter_path = true,
-				sorting_strategy = "descending",
 				initial_mode = "insert",
 				selection_strategy = "reset",
 				color_devicons = true,
