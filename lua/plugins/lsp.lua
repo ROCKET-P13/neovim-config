@@ -4,6 +4,7 @@ local M = {
 		"folke/neodev.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+		"hrsh7th/cmp-nvim-lsp", -- facilitates communication between lsp and autocompletion
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "antosha417/nvim-lsp-file-operations", config = true }, -- modify imports when files have been renamed
 		{ "folke/neodev.nvim", opts = {} }, -- add improved lua lsp functionality
@@ -12,8 +13,7 @@ local M = {
 	config = function()
 		require("neodev").setup({})
 
-		local capabilities = nil
-
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lspconfig = require("lspconfig")
 
 		local servers = {
@@ -54,7 +54,9 @@ local M = {
 				return t
 			end
 		end, vim.tbl_keys(servers))
+
 		require("mason").setup()
+
 		local ensure_installed = {
 			"ts_ls",
 			"lua_ls",
@@ -64,6 +66,7 @@ local M = {
 			"marksman",
 			"eslint",
 		}
+
 		require("mason-lspconfig").setup({
 			ensure_installed = ensure_installed,
 			automatic_enable = false, -- elect to setup servers myself to be able to pass cmp (autocomplete) capabilities
@@ -208,7 +211,7 @@ local M = {
 				require("conform").format({
 					bufnr = args.buf,
 					lsp_fallback = true,
-					async = false,
+					async = true,
 					timeout_ms = 200,
 					log_level = vim.log.levels.DEBUG,
 				})

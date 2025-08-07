@@ -73,7 +73,6 @@ local M = {
 		end)
 
 		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
-		vim.keymap.set("n", "<C-b>", builtin.buffers, {})
 	end,
 }
 

@@ -1,4 +1,4 @@
-return {
+local M = {
 	"stevearc/conform.nvim",
 	opts = {},
 	config = function()
@@ -23,3 +23,5 @@ return {
 		end, { desc = "Format file or range (in visual mode)" })
 	end,
 }
+
+return M
