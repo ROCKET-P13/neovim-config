@@ -1,6 +1,0 @@
-{
-	"suggest.noselect": false,
-	"suggest.enablePreselect": true,
-	"suggest.enableFloat": false,
-	"suggest.maxCompleteItemCount": 10
-}

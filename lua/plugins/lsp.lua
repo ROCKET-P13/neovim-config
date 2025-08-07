@@ -33,7 +33,11 @@ local M = {
 				},
 			},
 			cssls = true,
-			eslint = true,
+			eslint = {
+				settings = {
+					quiet = true,
+				},
+			},
 			ts_ls = {
 				server_capabilities = {
 					documentFormattingProvider = false,
@@ -52,15 +56,20 @@ local M = {
 		end, vim.tbl_keys(servers))
 		require("mason").setup()
 		local ensure_installed = {
-			"stylua",
-			"lua_ls",
 			"ts_ls",
-			"eslint",
+			"lua_ls",
+			"jsonls",
 			"html",
+			"cssls",
+			"marksman",
+			"eslint",
 		}
+		require("mason-lspconfig").setup({
+			ensure_installed = ensure_installed,
+			automatic_enable = false, -- elect to setup servers myself to be able to pass cmp (autocomplete) capabilities
+		})
 
 		vim.list_extend(ensure_installed, servers_to_install)
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		vim.diagnostic.config({
 			signs = true,
@@ -192,6 +201,18 @@ local M = {
 				header = "",
 				prefix = "",
 			},
+		})
+
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			callback = function(args)
+				require("conform").format({
+					bufnr = args.buf,
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 200,
+					log_level = vim.log.levels.DEBUG,
+				})
+			end,
 		})
 	end,
 }

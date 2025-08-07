@@ -37,6 +37,8 @@ vim.opt.splitbelow = true -- split horizontal window to the bottom
 
 vim.opt.fixendofline = false
 
+vim.g.mapleader = " "
+
 -- Remove auto comment continuation on newline
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
