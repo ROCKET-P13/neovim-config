@@ -115,12 +115,6 @@ local M = {
 				opts.desc = "LSP: Go to declaration"
 				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
-				local builtin = require("telescope.builtin")
-				vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
-
-				opts.desc = "LSP: Go to declaration"
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
 				opts.desc = "LSP: Show documentation for what is under cursor"
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
@@ -220,7 +214,6 @@ local M = {
 					lsp_fallback = true,
 					async = true,
 					timeout_ms = 200,
-					log_level = vim.log.levels.DEBUG,
 				})
 			end,
 		})

@@ -18,7 +18,6 @@ local M = {
 			defaults = {
 				path_display = { "smart" },
 				layout_strategy = "horizontal",
-				-- show preview no matter the terminal column width
 				layout_config = {
 					prompt_position = "top",
 					horizontal = {
@@ -73,6 +72,7 @@ local M = {
 		end)
 
 		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
+		vim.keymap.set("n", "<leader>t", builtin.buffers, {})
 	end,
 }
 
