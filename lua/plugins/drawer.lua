@@ -6,30 +6,13 @@ return {
 		drawer.setup(opts)
 
 		drawer.create_drawer({
-			-- This is needed for nvim-tree.
 			nvim_tree_hack = true,
-
-			-- Position on the right size of the screen.
 			position = "left",
 			size = 40,
 
-			-- Alternatively, you can have it floating.
-			-- size = 40,
-			-- position = 'float',
-			-- win_config = {
-			--   margin = 2,
-			--   border = 'rounded',
-			--   anchor = 'CE',
-			--   width = 40,
-			--   height = '80%',
-			-- },
-
 			on_vim_enter = function(event)
-				--- Open the drawer on startup.
-				--- Example mapping to toggle.
-
 				vim.keymap.set("n", "<C-b>", function()
-					event.instance.focus_or_toggle()
+					event.instance.toggle()
 				end)
 			end,
 
