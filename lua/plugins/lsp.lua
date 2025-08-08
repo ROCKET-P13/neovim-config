@@ -112,11 +112,11 @@ local M = {
 				local client = vim.lsp.get_client_by_id(event.data.client_id) or { name = "" }
 				local opts = { buffer = bufnr, silent = true }
 
-				opts.desc = "LSP: Show definitions"
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-
 				opts.desc = "LSP: Go to declaration"
 				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+				local builtin = require("telescope.builtin")
+				vim.keymap.set("n", "gd", builtin.lsp_definitions, { buffer = 0 })
 
 				opts.desc = "LSP: Go to declaration"
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
@@ -198,13 +198,20 @@ local M = {
 			underline = true,
 			severity_sort = true,
 			float = {
-				focusable = true,
+				focusable = false,
 				style = "minimal",
 				border = "rounded",
 				header = "",
 				prefix = "",
 			},
 		})
+
+		vim.keymap.set("n", "<C-k>", function()
+			vim.diagnostic.open_float({
+				scope = "line",
+				focusable = false,
+			})
+		end, { desc = "Show line diagnostics" })
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function(args)

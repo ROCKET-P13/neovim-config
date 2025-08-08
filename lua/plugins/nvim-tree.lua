@@ -10,6 +10,10 @@ local M = {
 			update_focused_file = {
 				enable = true,
 			},
+			git = {
+				enable = true,
+				ignore = false,
+			},
 		})
 	end,
 }

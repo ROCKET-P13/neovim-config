@@ -18,6 +18,7 @@ vim.opt.tabstop = 4 -- width (in columns) used to display an actual tabulation c
 vim.opt.shiftwidth = 4 -- amount of whitespace used for one level of indentation (e.g., >>)
 vim.opt.list = false
 vim.opt.autoindent = true -- copy indent from current line when starting new one
+vim.opt.smartindent = true
 
 vim.opt.wrap = false
 

@@ -117,6 +117,9 @@ local M = {
 		vim.api.nvim_set_hl(0, "htmlTagName", { link = "GruvboxAquaBold" })
 		vim.api.nvim_set_hl(0, "htmlArg", { link = "GruvboxYellow" })
 
+		vim.api.nvim_set_hl(0, "NvimTreeFolderName", { link = "GruvboxFg1" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { link = "GruvboxGray" })
+
 		vim.cmd("colorscheme gruvbox")
 		vim.api.nvim_set_hl(0, "Normal", { bg = "#181b1c", fg = "#ebdbb2" })
 		vim.api.nvim_set_hl(0, "CursorLine", { bg = "#24282a" })
