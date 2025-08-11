@@ -14,6 +14,9 @@ local M = {
 				enable = true,
 				ignore = false,
 			},
+			trash = {
+				cmd = "trash",
+			},
 		})
 	end,
 }

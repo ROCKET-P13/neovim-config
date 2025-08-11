@@ -12,13 +12,52 @@ return {
 			build = "make install_jsregexp",
 		},
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
-		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 	},
 	config = function()
 		local cmp = require("cmp")
 
 		local luasnip = require("luasnip")
+
+		luasnip.add_snippets("javascript", {
+			luasnip.snippet("tne", {
+				luasnip.text_node("throw new Error("),
+				luasnip.insert_node(1),
+				luasnip.text_node(")"),
+			}),
+		})
+
+		luasnip.add_snippets("javascript", {
+			luasnip.snippet("jsf", {
+				luasnip.text_node("JSON.stringify("),
+				luasnip.insert_node(1),
+				luasnip.text_node(")"),
+			}),
+		})
+
+		luasnip.add_snippets("javascript", {
+			luasnip.snippet("sn_beforeEach", {
+				luasnip.text_node("beforeEach(() => {"),
+				luasnip.insert_node(1),
+				luasnip.text_node("});"),
+			}),
+		})
+
+		luasnip.add_snippets("javascript", {
+			luasnip.snippet("cl", {
+				luasnip.text_node("console.log("),
+				luasnip.insert_node(1),
+				luasnip.text_node(")"),
+			}),
+		})
+
+		luasnip.add_snippets("javascript", {
+			luasnip.snippet("ci", {
+				luasnip.text_node("console.info("),
+				luasnip.insert_node(1),
+				luasnip.text_node(")"),
+			}),
+		})
 
 		local lspkind = require("lspkind")
 
@@ -32,7 +71,7 @@ return {
 			window = {
 				documentation = cmp.config.disable,
 			},
-			snippet = { -- configure how nvim-cmp interacts with snippet engine
+			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
 				end,
@@ -44,6 +83,7 @@ return {
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
 			}),
 			sources = cmp.config.sources({
+				{ name = "luasnip" },
 				{ name = "nvim_lsp" }, -- source suggestions from lsp
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths
