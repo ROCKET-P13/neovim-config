@@ -4,10 +4,10 @@ local M = {
 		"folke/neodev.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp", -- facilitates communication between lsp and autocompletion
+		"hrsh7th/cmp-nvim-lsp",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "antosha417/nvim-lsp-file-operations", config = true }, -- modify imports when files have been renamed
-		{ "folke/neodev.nvim", opts = {} }, -- add improved lua lsp functionality
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{ "folke/neodev.nvim", opts = {} },
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
@@ -114,6 +114,9 @@ local M = {
 
 				opts.desc = "LSP: Go to declaration"
 				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+				opts.desc = "LSP: Go to definition"
+				vim.keymap.set("n", "gD", vim.lsp.buf.definition, opts)
 
 				opts.desc = "LSP: Show documentation for what is under cursor"
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
