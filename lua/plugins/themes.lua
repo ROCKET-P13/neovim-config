@@ -33,6 +33,7 @@ local M = {
 		vim.api.nvim_set_hl(0, "@shorthand_property_identifier", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@property_reference", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@method_call", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@enum_name", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@testingg", { link = "GruvboxYellow" })
 
 		vim.api.nvim_set_hl(0, "@function.method.call.lua", { link = "GruvboxYellow" })
@@ -81,7 +82,8 @@ local M = {
 		vim.api.nvim_set_hl(0, "@keyword.import.typescript", { link = "GruvboxRed" })
 		vim.api.nvim_set_hl(0, "@keyword.import.javascript", { link = "GruvboxRed" })
 		vim.api.nvim_set_hl(0, "@type.builtin.javascript", { link = "GruvboxBlue" })
-		vim.api.nvim_set_hl(0, "@type.builtin.typescript", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@type.builtin.typescript", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@type.typescript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@variable.javascript", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@variable.typescript", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@variable.lua", { link = "GruvboxBlue" })
