@@ -27,6 +27,9 @@ local M = {
 				vim.keymap.set("n", "<leader>hs", gs.stage_hunk)
 				vim.keymap.set("n", "<leader>hr", gs.reset_hunk)
 				vim.keymap.set("n", "<leader>hp", gs.preview_hunk)
+				vim.keymap.set("n", "<leader>hu", function()
+					gs.undo_stage_hunk()
+				end, { buffer = bufnr, desc = "Unstage hunk" })
 			end,
 		})
 	end,
