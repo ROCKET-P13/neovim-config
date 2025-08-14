@@ -38,6 +38,7 @@ local M = {
 
 		vim.api.nvim_set_hl(0, "@function.method.call.lua", { link = "GruvboxYellow" })
 
+		vim.api.nvim_set_hl(0, "@punctuation.delimiter", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.delimiter.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.bracket.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.delimiter.typescript", { link = "GruvboxGray" })
