@@ -4,10 +4,10 @@ local M = {
 		"folke/neodev.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
-		"hrsh7th/cmp-nvim-lsp", -- facilitates communication between lsp and autocompletion
+		"hrsh7th/cmp-nvim-lsp",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "antosha417/nvim-lsp-file-operations", config = true }, -- modify imports when files have been renamed
-		{ "folke/neodev.nvim", opts = {} }, -- add improved lua lsp functionality
+		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{ "folke/neodev.nvim", opts = {} },
 	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
@@ -112,14 +112,11 @@ local M = {
 				local client = vim.lsp.get_client_by_id(event.data.client_id) or { name = "" }
 				local opts = { buffer = bufnr, silent = true }
 
-				opts.desc = "LSP: Show definitions"
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-
 				opts.desc = "LSP: Go to declaration"
 				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
-				opts.desc = "LSP: Go to declaration"
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+				opts.desc = "LSP: Go to definition"
+				vim.keymap.set("n", "gD", vim.lsp.buf.definition, opts)
 
 				opts.desc = "LSP: Show documentation for what is under cursor"
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -198,13 +195,20 @@ local M = {
 			underline = true,
 			severity_sort = true,
 			float = {
-				focusable = true,
+				focusable = false,
 				style = "minimal",
 				border = "rounded",
 				header = "",
 				prefix = "",
 			},
 		})
+
+		vim.keymap.set("n", "<C-k>", function()
+			vim.diagnostic.open_float({
+				scope = "line",
+				focusable = false,
+			})
+		end, { desc = "Show line diagnostics" })
 
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			callback = function(args)
@@ -213,7 +217,6 @@ local M = {
 					lsp_fallback = true,
 					async = true,
 					timeout_ms = 200,
-					log_level = vim.log.levels.DEBUG,
 				})
 			end,
 		})

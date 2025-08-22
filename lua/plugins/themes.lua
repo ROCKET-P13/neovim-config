@@ -33,10 +33,12 @@ local M = {
 		vim.api.nvim_set_hl(0, "@shorthand_property_identifier", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@property_reference", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@method_call", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@enum_name", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@testingg", { link = "GruvboxYellow" })
 
 		vim.api.nvim_set_hl(0, "@function.method.call.lua", { link = "GruvboxYellow" })
 
+		vim.api.nvim_set_hl(0, "@punctuation.delimiter", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.delimiter.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.bracket.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.delimiter.typescript", { link = "GruvboxGray" })
@@ -69,7 +71,6 @@ local M = {
 		vim.api.nvim_set_hl(0, "@function.builtin.lua", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@function.call.javascript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@function.call.typescript", { link = "GruvboxYellow" })
-		vim.api.nvim_set_hl(0, "@function.call.typescript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@function.call.lua", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@lsp.type.function.typescript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@type.javascript", { link = "GruvboxBlue" })
@@ -82,8 +83,10 @@ local M = {
 		vim.api.nvim_set_hl(0, "@keyword.import.typescript", { link = "GruvboxRed" })
 		vim.api.nvim_set_hl(0, "@keyword.import.javascript", { link = "GruvboxRed" })
 		vim.api.nvim_set_hl(0, "@type.builtin.javascript", { link = "GruvboxBlue" })
-		vim.api.nvim_set_hl(0, "@type.builtin.typescript", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@type.builtin.typescript", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@type.typescript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@variable.javascript", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@variable.typescript", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@variable.lua", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@variable.typescript", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@variable.member.javascript", { link = "GruvboxFg1" })
@@ -116,6 +119,9 @@ local M = {
 		vim.api.nvim_set_hl(0, "htmlTag", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "htmlTagName", { link = "GruvboxAquaBold" })
 		vim.api.nvim_set_hl(0, "htmlArg", { link = "GruvboxYellow" })
+
+		vim.api.nvim_set_hl(0, "NvimTreeFolderName", { link = "GruvboxFg1" })
+		vim.api.nvim_set_hl(0, "NvimTreeGitIgnored", { link = "GruvboxGray" })
 
 		vim.cmd("colorscheme gruvbox")
 		vim.api.nvim_set_hl(0, "Normal", { bg = "#181b1c", fg = "#ebdbb2" })
