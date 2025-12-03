@@ -44,6 +44,10 @@ local M = {
 				},
 			},
 		})
+
+		-- vim.opt.foldenable = false
+		-- vim.opt.foldmethod = "expr" -- Folding type (expr, indent, manual)
+		-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- or "v:lua.vim.treesitter.foldexpr()" according to :h vim.treesitter.foldexpr()
 	end,
 }
 

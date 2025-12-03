@@ -16,7 +16,6 @@ local M = {
 		vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
 			desc = "Search word on current file",
 		})
-
 		vim.keymap.set("n", "<leader>f", '<cmd>lua require("spectre").open_file_search({select_word=false})<CR>', {
 			desc = "Search on current file",
 		})
