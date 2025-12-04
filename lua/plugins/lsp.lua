@@ -127,16 +127,6 @@ local M = {
 				focusable = false,
 			})
 		end, { desc = "Show line diagnostics" })
-
-		-- vim.api.nvim_create_autocmd("BufWritePre", {
-		-- 	callback = function(args)
-		-- 		require("conform").format({
-		-- 			bufnr = args.bufnr,
-		-- 			lsp_fallback = true,
-		-- 			async = false,
-		-- 		})
-		-- 	end,
-		-- })
 	end,
 }
 

@@ -112,6 +112,11 @@
   name: (identifier) @class.name
   )
 
+(class_declaration
+  name: (identifier) @class.name
+  )
+
+
 (member_expression
   object: (this) @class.this
   )

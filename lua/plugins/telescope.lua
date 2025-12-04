@@ -69,7 +69,6 @@ local M = {
 				},
 				frecency = {
 					auto_validate = false,
-					matcher = "fuzzy",
 					path_display = { "filename_first" },
 					ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store", "*/node_modules/*" },
 					workspace = "CWD",
@@ -84,8 +83,7 @@ local M = {
 		-- vim.keymap.set("n", "<C-p>", require("telescope").extensions.frecency.frecency)
 		vim.keymap.set("n", "<C-p>", function()
 			require("telescope").extensions.frecency.frecency({
-				auto_validate = false,
-				-- matcher = "fuzzy",
+				-- auto_validate = false,
 				path_display = { "filename_first" },
 				ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store", "*/node_modules/*" },
 				workspace = "CWD",

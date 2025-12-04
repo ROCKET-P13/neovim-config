@@ -104,6 +104,7 @@ local M = {
 		vim.api.nvim_set_hl(0, "@punctuation.special.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@operator.javascript", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@constant.builtin.javascript", { link = "GruvboxPurple" })
+		vim.api.nvim_set_hl(0, "@constant.javascript", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@function.method.javascript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@function.javascript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@function.method.call.javascript", { link = "GruvboxYellow" })
