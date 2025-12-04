@@ -172,6 +172,8 @@ local M = {
 		vim.api.nvim_set_hl(0, "@string.json", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@string.escape.json", { link = "GruvboxPurple" })
 
+		vim.api.nvim_set_hl(0, "TelescopePathSeparator", { link = "GruvboxGray" })
+
 		vim.cmd("colorscheme gruvbox")
 		-- vim.api.nvim_set_hl(0, "Normal", { bg = "#1d2021", fg = "#1d2021" })
 		-- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#181b1c" })

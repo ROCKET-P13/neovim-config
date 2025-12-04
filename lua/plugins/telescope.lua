@@ -67,13 +67,30 @@ local M = {
 					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 					-- the default case_mode is "smart_case"
 				},
+				frecency = {
+					auto_validate = false,
+					matcher = "fuzzy",
+					path_display = { "filename_first" },
+					ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store", "*/node_modules/*" },
+					workspace = "CWD",
+				},
 			},
 		})
 
 		require("telescope").load_extension("fzf")
+		require("telescope").load_extension("frecency")
 
 		local builtin = require("telescope.builtin")
-		vim.keymap.set("n", "<C-p>", builtin.find_files)
+		-- vim.keymap.set("n", "<C-p>", require("telescope").extensions.frecency.frecency)
+		vim.keymap.set("n", "<C-p>", function()
+			require("telescope").extensions.frecency.frecency({
+				auto_validate = false,
+				-- matcher = "fuzzy",
+				path_display = { "filename_first" },
+				ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store", "*/node_modules/*" },
+				workspace = "CWD",
+			})
+		end)
 		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
 		vim.keymap.set("n", "<leader>b", builtin.buffers, {})
 		vim.keymap.set("n", "<leader>mg", require("config.telescope.multigrep").setup)
