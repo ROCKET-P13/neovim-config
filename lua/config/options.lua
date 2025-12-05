@@ -1,5 +1,5 @@
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
@@ -37,6 +37,7 @@ vim.g.mapleader = " "
 -- force CRLF line endings for all new files
 vim.opt.fileformats = "dos,unix"
 vim.opt.fileformat = "dos"
+vim.opt.cmdheight = 0
 
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
 	callback = function()
