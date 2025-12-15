@@ -1,4 +1,4 @@
-;extends
+; extends
 
 (object
 	(pair
@@ -92,13 +92,32 @@
 
 ; Operators
 [";" ":" "," "." "="] @operator
-[">" "<" "||" "!" "&&"] @special_operator
+[">" "<" "||" "!" "&&" "</"] @special_operator
 
 ; Function definitions
 (function_declaration
   name: (identifier) @function)
 (arrow_function
   "=>" @operator)
+
+(jsx_attribute
+  (property_identifier) @jsx.attr.name
+  )
+
+(jsx_opening_element
+  "<" @jsx.tag.delimiter
+  name: (identifier) @jsx.tag.name
+  )
+(jsx_opening_element
+  ">" @jsx.tag.delimiter
+  )
+
+(jsx_closing_element
+  ">" @jsx.tag.delimiter
+  )
+(jsx_closing_element
+  "</" @jsx.tag.delimiter
+  )
 
 ; Method calls
 (call_expression
