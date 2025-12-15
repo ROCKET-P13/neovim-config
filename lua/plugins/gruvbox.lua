@@ -153,6 +153,38 @@ local M = {
 		vim.api.nvim_set_hl(0, "@function.typescript", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@variable.builtin.typescript", { link = "GruvboxBlue" })
 
+		-- tsx highlights
+		vim.api.nvim_set_hl(0, "@punctuation.special.tsx", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@punctuation.delimiter.tsx", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@punctuation.bracket.tsx", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@operator.tsx", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@constant.builtin.tsx", { link = "GruvboxPurple" })
+		vim.api.nvim_set_hl(0, "@operator.tsx", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@function.method.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@constant.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@constant.builtin.tsx", { link = "GruvboxPurple" })
+		vim.api.nvim_set_hl(0, "@function.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@variable.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@variable.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@variable.member.tsx", { link = "GruvboxFg1" })
+		vim.api.nvim_set_hl(0, "@type.builtin.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@type.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@type.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@type.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@constructor.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.call.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@keyword.import.tsx", { link = "GruvboxRed" })
+		vim.api.nvim_set_hl(0, "@lsp.type.function.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.builtin.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.method.call.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.method.call.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@function.tsx", { link = "GruvboxYellow" })
+		vim.api.nvim_set_hl(0, "@variable.builtin.tsx", { link = "GruvboxBlue" })
+		vim.api.nvim_set_hl(0, "@tag.tsx", { link = "GruvboxAqua" })
+		vim.api.nvim_set_hl(0, "@tag.builtin.tsx", { link = "GruvboxAqua" })
+		vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { link = "GruvboxGray" })
+
 		-- xml highlights
 		vim.api.nvim_set_hl(0, "xmlEndTag", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "xmlTag", { link = "GruvboxBlue" })
@@ -176,12 +208,8 @@ local M = {
 		vim.api.nvim_set_hl(0, "TelescopePathSeparator", { link = "GruvboxGray" })
 
 		vim.cmd("colorscheme gruvbox")
-		-- vim.api.nvim_set_hl(0, "Normal", { bg = "#1d2021", fg = "#1d2021" })
-		-- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#181b1c" })
-		-- vim.api.nvim_set_hl(0, "", { bg = "#24282a" })
-
 		vim.cmd("hi SignColumn guibg=NONE cterm=NONE term=NONE")
-		-- vim.cmd("hi Normal guibg=NONE cterm=NONE term=NONE")
+		vim.cmd("hi Normal guibg=NONE cterm=NONE term=NONE")
 	end,
 }
 

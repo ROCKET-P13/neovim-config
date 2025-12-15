@@ -26,9 +26,7 @@ local M = {
 				end, { expr = true, buffer = bufnr })
 
 				vim.keymap.set("n", "<leader>bl", function()
-					gs.blame_line({
-						full = true,
-					})
+					gs.blame_line({})
 				end)
 
 				vim.keymap.set("n", "<leader>hs", gs.stage_hunk)

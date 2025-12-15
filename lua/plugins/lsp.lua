@@ -30,6 +30,18 @@ local M = {
 			},
 		})
 
+		vim.lsp.config("ts_ls", {
+			settings = {
+				filetypes = {
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+					"tsx",
+				},
+			},
+		})
+
 		vim.lsp.enable("lua_ls")
 		vim.lsp.enable("ts_ls")
 		vim.lsp.enable("eslint")
