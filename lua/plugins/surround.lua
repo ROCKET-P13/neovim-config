@@ -25,7 +25,7 @@ local M = {
 		vim.keymap.set("v", "(", "<Plug>(nvim-surround-visual)(", {})
 		vim.keymap.set("v", "[", "<Plug>(nvim-surround-visual)[", {})
 		vim.keymap.set("v", "{", "<Plug>(nvim-surround-visual){", {})
-		vim.keymap.set("v", "<", "<Plug>(nvim-surround-visual)<", {})
+		-- vim.keymap.set("v", "<", "<Plug>(nvim-surround-visual)<", {})
 	end,
 }
 
