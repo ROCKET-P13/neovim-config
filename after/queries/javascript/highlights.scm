@@ -73,7 +73,7 @@
 )
 
 (call_expression
- function: (member_expression ; [459, 38] - [459, 83]
+ function: (member_expression
 	  object: (member_expression ; [459, 38] - [459, 66]
 		object: (this) ; [459, 38] - [459, 42]
 		property: (private_property_identifier)) ; [459, 43] - [459, 66]
