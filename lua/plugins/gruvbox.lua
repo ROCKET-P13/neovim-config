@@ -1,5 +1,6 @@
 local M = {
 	"ellisonleao/gruvbox.nvim",
+	lazy = false,
 	config = function()
 		require("gruvbox").setup({
 			terminal_colors = false,
