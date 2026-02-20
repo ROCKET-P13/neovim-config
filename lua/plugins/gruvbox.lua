@@ -129,6 +129,7 @@ local M = {
 		vim.api.nvim_set_hl(0, "@tag.builtin.javascript", { link = "GruvboxAqua" })
 		vim.api.nvim_set_hl(0, "@jsx.attr.name", { link = "GruvboxYellow" })
 		vim.api.nvim_set_hl(0, "@jsx.tag.delimiter", { link = "GruvboxGray" })
+		vim.api.nvim_set_hl(0, "@tag.delimiter.javascript", { link = "GruvboxGray" })
 
 		-- typescript highlights
 		vim.api.nvim_set_hl(0, "@punctuation.special.typescript", { link = "GruvboxGray" })
