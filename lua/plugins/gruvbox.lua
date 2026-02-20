@@ -28,6 +28,7 @@ local M = {
 		-- c# custom highlights
 		vim.api.nvim_set_hl(0, "@using_module", { link = "GruvboxGreen" })
 		vim.api.nvim_set_hl(0, "@file_scoped_namespace_declaration", { link = "GruvboxGreen" })
+		vim.api.nvim_set_hl(0, "@attribute.c_sharp", { link = "GruvboxYellow" })
 
 		-- c# highlights
 		vim.api.nvim_set_hl(0, "@keyword.type.c_sharp", { link = "GruvboxOrange" })
