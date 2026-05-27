@@ -6,7 +6,6 @@ local M = {
 	},
 	build = ":TSUpdate",
 	lazy = false,
-	-- event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
