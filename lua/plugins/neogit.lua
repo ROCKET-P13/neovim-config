@@ -10,6 +10,7 @@ return {
 	},
 	config = function()
 		require("neogit").setup({
+			kind = "floating",
 			disable_line_numbers = false,
 			integrations = {
 				codediff = true,
