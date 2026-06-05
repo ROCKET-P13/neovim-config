@@ -80,15 +80,6 @@ local M = {
 		require("telescope").load_extension("frecency")
 
 		local builtin = require("telescope.builtin")
-		-- vim.keymap.set("n", "<C-p>", require("telescope").extensions.frecency.frecency)
-		vim.keymap.set("n", "<C-p>", function()
-			require("telescope").extensions.frecency.frecency({
-				-- auto_validate = false,
-				path_display = { "filename_first" },
-				ignore_patterns = { "*/.git", "*/.git/*", "*/.DS_Store", "*/node_modules/*" },
-				workspace = "CWD",
-			})
-		end)
 		vim.keymap.set("n", "<C-g>", builtin.git_status, {})
 		vim.keymap.set("n", "<leader>b", builtin.buffers, {})
 		vim.keymap.set("n", "<leader>mg", require("config.telescope.multigrep").setup)
