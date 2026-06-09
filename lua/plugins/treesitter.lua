@@ -21,7 +21,7 @@ local M = {
 				"bash",
 				"query",
 			},
-			sync_install = false,
+			sync_install = true,
 			auto_install = false,
 			indent = {
 				enable = false,
@@ -30,7 +30,7 @@ local M = {
 				enable = true,
 			},
 			highlight = {
-				enable = true,
+				enable = false,
 				additional_vim_regex_highlighting = false,
 			},
 			incremental_selection = {

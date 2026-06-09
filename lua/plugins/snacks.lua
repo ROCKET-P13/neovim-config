@@ -102,23 +102,23 @@ return {
 			enabled = true,
 			only_scope = true,
 			only_current = true,
+			char = "┊",
 			scope = {
 				enabled = false,
 			},
-
 			animate = {
 				enabled = false,
 			},
 		},
-		input = { enabled = true },
+		input = { enabled = false },
 		notifier = {
 			enabled = false,
 			timeout = 3000,
 		},
 		picker = { enabled = true },
 		quickfile = { enabled = true },
-		scope = { enabled = true },
-		statuscolumn = { enabled = true },
+		scope = { enabled = false },
+		statuscolumn = { enabled = false },
 		words = { enabled = false },
 		styles = {
 			scratch = {
