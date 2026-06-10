@@ -67,6 +67,27 @@ local function start_treesitter(buf)
 	pcall(vim.treesitter.start, buf)
 end
 
+-- Legacy Vim :syntax highlighting runs independently of treesitter, so it keeps
+-- matching underneath our extmarks (visible in :Inspect) unless we also turn it
+-- off. Setting 'syntax' to "OFF" clears it for the buffer; "ON" reloads it from
+-- the filetype. Re-apply on the next tick for the same FileType-autocmd race
+-- reason as stop_treesitter.
+local function stop_syntax(buf)
+	local function off()
+		if vim.api.nvim_buf_is_valid(buf) then
+			vim.bo[buf].syntax = "OFF"
+		end
+	end
+	off()
+	vim.schedule(off)
+end
+
+local function start_syntax(buf)
+	if vim.api.nvim_buf_is_valid(buf) then
+		vim.bo[buf].syntax = "ON"
+	end
+end
+
 local function scope_for_buf(buf)
 	local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
 	return state.config.filetypes[ft]
@@ -80,6 +101,7 @@ function M.attach_buf(buf)
 	end
 	if state.config.replace_treesitter then
 		stop_treesitter(buf)
+		stop_syntax(buf)
 	end
 	highlighter.attach(buf, scope_name)
 	return true
@@ -90,6 +112,7 @@ function M.detach_buf(buf)
 	highlighter.detach(buf)
 	if state.config.replace_treesitter then
 		start_treesitter(buf)
+		start_syntax(buf)
 	end
 end
 

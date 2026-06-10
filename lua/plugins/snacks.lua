@@ -115,7 +115,16 @@ return {
 			enabled = false,
 			timeout = 3000,
 		},
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			sources = {
+				-- Restrict the smart picker's buffers/recent/files to the current
+				-- project (cwd); recent files and buffers outside it are excluded.
+				smart = {
+					filter = { cwd = true },
+				},
+			},
+		},
 		quickfile = { enabled = true },
 		scope = { enabled = false },
 		statuscolumn = { enabled = false },
@@ -141,9 +150,9 @@ return {
 		{
 			"<C-p>",
 			function()
-				Snacks.picker.files()
+				Snacks.picker.smart()
 			end,
-			desc = "Find Files",
+			desc = "Smart Find Files",
 		},
 		{
 			"<leader>,",

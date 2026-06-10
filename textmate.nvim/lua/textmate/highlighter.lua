@@ -167,6 +167,17 @@ function M.attach(buf, scope_name)
 			end
 			schedule(buf)
 		end,
+		on_reload = function()
+			if not state[buf] or not state[buf].attached then
+				return true -- detach the callback
+			end
+			-- A reload (e.g. autoread after `git reset --hard` rewrites the file)
+			-- wipes every extmark and replaces all lines. Drop the cached base so
+			-- the next pass is a full re-tokenize, repainting the whole buffer
+			-- rather than only an incremental diff.
+			config.client:drop(buf)
+			schedule(buf)
+		end,
 		on_detach = function()
 			M.detach(buf)
 		end,

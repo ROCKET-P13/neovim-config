@@ -25,6 +25,7 @@ local M = {
 			transparent_mode = false,
 		})
 
+		vim.api.nvim_set_hl(0, "SnacksPickerDirectory", { link = "SnacksPickerFile" })
 		-- c# custom highlights
 		vim.api.nvim_set_hl(0, "@using_module", { link = "GruvboxGreen" })
 		vim.api.nvim_set_hl(0, "@file_scoped_namespace_declaration", { link = "GruvboxGreen" })
