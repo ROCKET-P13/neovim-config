@@ -196,6 +196,23 @@ async function main() {
     }
 
     bufferState.set(bufId, { scopeName, lines: newLines, endState: newEnd });
+
+    // Repaint one line of left context. An extmark ending at the last column of
+    // the line above the changed range bleeds onto the changed range when a
+    // newline is inserted at that column (the client paints with end-right
+    // gravity so typed characters extend a token). The client clears the changed
+    // range before repainting, which drops the bled mark, so re-emit that line's
+    // tokens to restore it. Its begin state is unchanged, so this only adds a
+    // single line of work.
+    if (prefix > 0) {
+      const ctxLine = newLines[prefix - 1];
+      const ctx = grammar.tokenizeLine2(
+        ctxLine,
+        beginStateAt(newEnd, prefix - 1),
+      );
+      changed.unshift(toByteTokens(ctxLine, ctx.tokens));
+      return { start: prefix - 1, stop: i, tokens: changed, lineCount: newLen };
+    }
     return { start: prefix, stop: i, tokens: changed, lineCount: newLen };
   }
 

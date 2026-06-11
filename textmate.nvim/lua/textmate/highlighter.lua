@@ -66,7 +66,13 @@ local schedule
 -- tokenizer's cached base in lockstep with what we last painted, so its
 -- incremental diffs stay valid. Edits arriving while a request is in flight set
 -- `dirty`, triggering a follow-up pass once the current one returns.
-local function send_tokenize(buf)
+--
+-- `limit`, when set, sends only the first `limit` lines. The tokenizer caches
+-- rule-stack state for just that prefix, so the follow-up full pass resumes
+-- tokenizing from where this one stopped instead of redoing it. Used on initial
+-- attach to paint the visible viewport first, so colors appear without waiting
+-- for the whole file to tokenize.
+local function send_tokenize(buf, limit)
 	local st = state[buf]
 	if not st or not st.attached or not vim.api.nvim_buf_is_valid(buf) then
 		return
@@ -81,9 +87,16 @@ local function send_tokenize(buf)
 		st.dirty = true
 		return
 	end
-	local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+	local send_count = line_count
+	local partial = false
+	if limit and limit < line_count then
+		send_count = limit
+		partial = true
+	end
+	local lines = vim.api.nvim_buf_get_lines(buf, 0, send_count, false)
 	st.inflight = true
 	st.dirty = false
+	st.partial = partial
 	st.tick = vim.api.nvim_buf_get_changedtick(buf)
 	config.client:tokenize(buf, st.scope_name, lines, function(err, result)
 		vim.schedule(function()
@@ -98,6 +111,11 @@ local function send_tokenize(buf)
 				return
 			elseif vim.api.nvim_buf_get_changedtick(buf) == s.tick then
 				paint_range(buf, s.ns, result.start, result.stop, result.tokens)
+				-- Only a prefix was painted; queue a full pass to tokenize the rest.
+				if s.partial then
+					s.partial = false
+					s.dirty = true
+				end
 			else
 				-- The buffer changed during the request, so the result's line
 				-- numbers no longer line up and the cached base is stale. Discard
@@ -152,6 +170,29 @@ function schedule(buf)
 	end)
 end
 
+-- Lines below the viewport still tokenized in the first pass, so a small scroll
+-- lands on already-painted text while the background pass catches up.
+local INITIAL_OVERSCAN = 100
+
+-- Last visible line of a window showing `buf`, plus overscan; nil when the
+-- buffer is not displayed (then the caller does a normal full tokenize). A
+-- top-anchored slice is safe because line 0 begins from the grammar's INITIAL
+-- state, so the prefix tokenizes identically whether sent alone or with the
+-- rest of the file.
+local function initial_limit(buf)
+	local win = vim.fn.bufwinid(buf)
+	if win == -1 then
+		return nil
+	end
+	local bottom = vim.api.nvim_win_call(win, function()
+		return vim.fn.line("w$")
+	end)
+	if not bottom or bottom <= 0 then
+		return nil
+	end
+	return bottom + INITIAL_OVERSCAN
+end
+
 --- Attach highlighting to a buffer for the given grammar scope.
 function M.attach(buf, scope_name)
 	if state[buf] and state[buf].attached then
@@ -185,7 +226,7 @@ function M.attach(buf, scope_name)
 
 	config.client:when_ready(function()
 		vim.schedule(function()
-			send_tokenize(buf)
+			send_tokenize(buf, initial_limit(buf))
 		end)
 	end)
 end

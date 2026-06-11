@@ -34,5 +34,13 @@
   "source.cs": {
     "file": "csharp.tmLanguage",
     "url": "https://raw.githubusercontent.com/dotnet/csharp-tmLanguage/main/grammars/csharp.tmLanguage"
+  },
+  "text.html.basic": {
+    "file": "html.tmLanguage.json",
+    "url": "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/html/syntaxes/html.tmLanguage.json"
+  },
+  "text.xml": {
+    "file": "xml.tmLanguage.json",
+    "url": "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/xml/syntaxes/xml.tmLanguage.json"
   }
 }

@@ -16,12 +16,6 @@ local M = {
 			},
 		})
 
-		vim.lsp.config("eslint", {
-			settings = {
-				quiet = true,
-			},
-		})
-
 		vim.lsp.config("omnisharp", {
 			settings = {
 				FormattingOptions = {

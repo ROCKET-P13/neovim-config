@@ -21,6 +21,10 @@ return {
 			-- auto_attach = true,         -- attach on FileType for mapped filetypes
 			-- node = "node",              -- override node binary path
 			-- throttle_ms = 40,           -- how often to re-highlight while typing
+			-- Files above this line count are skipped (no highlighting). Raised
+			-- from the 5000 default; each tokenize pass re-sends the whole buffer,
+			-- so very large files cost more per edit.
+			max_lines = 100000,
 		})
 	end,
 }

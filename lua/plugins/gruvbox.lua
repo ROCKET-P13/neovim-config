@@ -194,9 +194,9 @@ local M = {
 		vim.api.nvim_set_hl(0, "@tag.delimiter.tsx", { link = "GruvboxGray" })
 
 		-- xml highlights
-		vim.api.nvim_set_hl(0, "xmlEndTag", { link = "GruvboxBlue" })
-		vim.api.nvim_set_hl(0, "xmlTag", { link = "GruvboxBlue" })
-		vim.api.nvim_set_hl(0, "xmlTagName", { link = "GruvboxAquaBold" })
+		-- vim.api.nvim_set_hl(0, "xmlEndTag", { link = "GruvboxBlue" })
+		-- vim.api.nvim_set_hl(0, "xmlTag", { link = "GruvboxBlue" })
+		-- vim.api.nvim_set_hl(0, "xmlTagName", { link = "GruvboxAquaBold" })
 
 		-- html highlights
 		vim.api.nvim_set_hl(0, "@tag.delimiter.html", { link = "GruvboxAqua" })
@@ -205,8 +205,8 @@ local M = {
 		vim.api.nvim_set_hl(0, "@operator.html", { link = "GruvboxGray" })
 
 		-- json highlights
-		vim.api.nvim_set_hl(0, "jsonKeyword", { link = "GruvboxAqua" })
-		vim.api.nvim_set_hl(0, "jsonString", { link = "GruvboxBlue" })
+		-- vim.api.nvim_set_hl(0, "jsonKeyword", { link = "GruvboxAqua" })
+		-- vim.api.nvim_set_hl(0, "jsonString", { link = "GruvboxBlue" })
 		vim.api.nvim_set_hl(0, "@punctuation.delimiter.json", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@punctuation.bracket.json", { link = "GruvboxGray" })
 		vim.api.nvim_set_hl(0, "@property.json", { link = "GruvboxAqua" })
@@ -218,6 +218,11 @@ local M = {
 		vim.cmd("colorscheme gruvbox")
 		vim.cmd("hi SignColumn guibg=NONE cterm=NONE term=NONE")
 		vim.cmd("hi Normal guibg=NONE cterm=NONE term=NONE")
+
+		-- Unused symbols arrive as diagnostics tagged Unnecessary, which Neovim's
+		-- underline handler paints with DiagnosticUnnecessary; a yellow undercurl
+		-- there marks unused variables without greying their text.
+		vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { undercurl = true, sp = "#fabd2f" })
 	end,
 }
 

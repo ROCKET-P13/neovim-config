@@ -14,10 +14,13 @@ local M = {
 			formatters_by_ft = {
 				lua = { "stylua" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-			},
+			format_on_save = function(bufnr)
+				local disabled = { html = true, xml = true }
+				if disabled[vim.bo[bufnr].filetype] then
+					return nil
+				end
+				return { lsp_fallback = true, async = false }
+			end,
 		})
 	end,
 }
