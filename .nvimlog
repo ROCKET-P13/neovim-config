@@ -16,3 +16,5 @@ WRN 2026-06-11T09:51:39.477 ?.66295    server_start:193: Failed to start server:
 WRN 2026-06-11T09:56:00.272 ?.70826    server_start:193: Failed to start server: operation not permitted: /var/folders/yf/w6b9qd2x09j9vj2rq_32t9qnsvhsd6/T/nvim.lvenceslau/a3s0Kb/nvim.70826.0
 WRN 2026-06-11T10:17:13.373 ?.89396    server_start:193: Failed to start server: operation not permitted: /var/folders/yf/w6b9qd2x09j9vj2rq_32t9qnsvhsd6/T/nvim.lvenceslau/DpEH7o/nvim.89396.0
 WRN 2026-06-11T10:20:09.749 ?.92734    server_start:193: Failed to start server: operation not permitted: /var/folders/yf/w6b9qd2x09j9vj2rq_32t9qnsvhsd6/T/nvim.lvenceslau/RTty8V/nvim.92734.0
+WRN 2026-06-11T11:05:49.086 ?.42887    server_start:193: Failed to start server: operation not permitted: /var/folders/yf/w6b9qd2x09j9vj2rq_32t9qnsvhsd6/T/nvim.lvenceslau/dVe9e9/nvim.42887.0
+WRN 2026-06-11T11:07:50.173 ?.45211    server_start:193: Failed to start server: operation not permitted: /var/folders/yf/w6b9qd2x09j9vj2rq_32t9qnsvhsd6/T/nvim.lvenceslau/lrmkr8/nvim.45211.0

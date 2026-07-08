@@ -398,6 +398,9 @@ local function make_input_buf()
 	vim.bo[buf].buftype = "nofile"
 	vim.bo[buf].bufhidden = "wipe"
 	vim.bo[buf].swapfile = false
+	-- blink.cmp checks this buffer-local flag; keep its completion menu out of
+	-- the find/replace inputs without touching the global blink config.
+	vim.b[buf].completion = false
 	return buf
 end
 
@@ -429,7 +432,7 @@ local function inner_config(s, row, focusable, title)
 		anchor = "NW",
 		row = row,
 		col = 2,
-		width = s.box_w,
+		width = s.box_w - 2,
 		height = 1,
 		style = "minimal",
 		border = "rounded",

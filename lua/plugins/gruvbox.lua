@@ -26,6 +26,7 @@ local M = {
 		})
 
 		vim.api.nvim_set_hl(0, "SnacksPickerDirectory", { link = "SnacksPickerFile" })
+
 		-- c# custom highlights
 		vim.api.nvim_set_hl(0, "@using_module", { link = "GruvboxGreen" })
 		vim.api.nvim_set_hl(0, "@file_scoped_namespace_declaration", { link = "GruvboxGreen" })
@@ -223,6 +224,11 @@ local M = {
 		-- underline handler paints with DiagnosticUnnecessary; a yellow undercurl
 		-- there marks unused variables without greying their text.
 		vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { undercurl = true, sp = "#fabd2f" })
+
+		-- Snacks applies its picker highlights on ColorScheme, which fires during
+		-- the colorscheme command above; overriding untracked files here (after
+		-- that) keeps them green instead of the default NonText gray.
+		vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "GruvboxGreen" })
 	end,
 }
 
